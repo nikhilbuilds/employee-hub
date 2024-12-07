@@ -1,30 +1,4 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Employee & Time-Off Management System
 
 ## Project setup
 
@@ -45,55 +19,193 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
 
-```bash
-# unit tests
-$ npm run test
+## Features
 
-# e2e tests
-$ npm run test:e2e
+- **Employee Management**: Add, update, and retrieve employee details.
+- **Time-Off Management**: Request time-off with validation for overlapping leave requests.
+- **Policy Engine**: Enforces custom time-off rules for categories.
+- **Company Management**: Maintains company details and associations.
+- **User Management**: Handles user data linked to employees.
 
-# test coverage
-$ npm run test:cov
+---
+
+## Core Modules
+
+### **Employee Module**
+
+Manages employee operations.
+
+- **Controllers**: `EmployeeController`
+- **Services**: `EmployeeService`
+- **Repositories**: `EmployeeRepository`
+
+### **TimeOff Module**
+
+Handles time-off requests and policies.
+
+- **Controllers**: `TimeOffController`
+- **Services**: `TimeOffService`
+- **Policy Engine**: `TimeOffPolicyEngine`
+- **Repositories**: `TimeOffRequestRepository`, `TimeOffRulesRepository`
+
+### **Company Module**
+
+Stores and manages company details.
+
+- **Repositories**: `CompanyRepository`
+
+### **User Module**
+
+Manages user information linked to employees.
+
+- **Repositories**: `UserRepository`
+
+---
+
+## Database Design
+
+### **Entities**
+
+#### 1. User
+
+- `userId`: Primary Key (UUID)
+- `name`: String
+- `emailId`: String (Unique)
+- `createdAt`, `modifiedAt`: Timestamps
+
+#### 2. Company
+
+- `companyId`: Primary Key (UUID)
+- `companyName`: String
+- `address`: String
+
+#### 3. Employee
+
+- `employeeId`: Primary Key (UUID)
+- `position`: String
+- `salary`: Number
+- Relationships: `One-to-One` with User, `One-to-Many` with Company
+
+#### 4. TimeOffRequest
+
+- `id`: Primary Key (Integer)
+- `employeeId`: Foreign Key to Employee
+- `requestCategoryId`: Foreign Key to RequestCategory
+- `startDate`, `endDate`: Timestamps
+
+#### 5. RequestCategory
+
+- `id`: Primary Key (Integer)
+- `name`: String
+
+#### 6. TimeOffRule
+
+- `id`: Primary Key (Integer)
+- `categoryId`: Foreign Key to RequestCategory
+- `canOverlapId`: Foreign Key to RequestCategory
+- `isAllowed`: Boolean
+
+---
+
+## Seed Data
+
+### Company
+
+```sql
+INSERT INTO company (company_name, address, created_at, modified_at)
+VALUES
+  ('Tech Corp', '123 Silicon Valley', now(), now()),
+  ('Innovate Ltd.', '456 Tech Park', now(), now()),
+  ('Future Solutions', '789 Innovation Drive', now(), now());
 ```
 
-## Deployment
+### RequestCategory
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
+```sql
+INSERT INTO request_category (name)
+VALUES
+  ('Annual Leave'),
+  ('Sick Leave'),
+  ('Work Remotely');
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### TimeOffRule
+```sql
+INSERT INTO time_off_rule (category_id, can_overlap_id, is_allowed)
+VALUES
+  (1, 3, true),
+  (2, 3, false);
+```
+## API Endpoints
 
-## Resources
+### **1. Fetch All Employees**
 
-Check out a few resources that may come in handy when working with NestJS:
+**Endpoint**: `GET /employees`
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+#### Response:
+```json
+[
+  {
+    "employeeId": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "John Doe",
+    "emailId": "john.doe@example.com",
+    "position": "Software Engineer",
+    "salary": 80000,
+    "company": {
+      "companyId": "company123",
+      "companyName": "Tech Corp"
+    }
+  }
+]
+```
 
-## Support
+### **2. Fetch All Employees**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Endpoint**: `GET /employees/:id`
 
-## Stay in touch
+#### Response:
+```json
+{
+  "employeeId": "123e4567-e89b-12d3-a456-426614174000",
+  "name": "John Doe",
+  "emailId": "john.doe@example.com",
+  "position": "Software Engineer",
+  "salary": 80000,
+  "company": {
+    "companyId": "company123",
+    "companyName": "Tech Corp"
+  }
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### **3. Create Employee**
 
-## License
+**Endpoint**: `POST /employees`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### Request Payload:
+```json
+{
+  "name": "Jane Smith",
+  "emailId": "jane.smith@example.com",
+  "position": "Product Manager",
+  "salary": 90000,
+  "companyId": "company123"
+}
+```
+
+#### Response:
+```json
+{
+  "success": true,
+  "message": "Employee created successfully.",
+  "employee": {
+    "employeeId": "123e4567-e89b-12d3-a456-426614174001",
+    "name": "Jane Smith",
+    "emailId": "jane.smith@example.com",
+    "position": "Product Manager",
+    "salary": 90000,
+    "companyId": "company123"
+  }
+}
+```
