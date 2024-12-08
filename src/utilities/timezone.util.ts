@@ -1,8 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 
 export function convertUTCToLocal(utcDate) {
-  //const utcDate = new Date(utcDateString);
-
   if (isNaN(utcDate.getTime())) {
     throw new BadRequestException('Invalid UTC date string');
   }

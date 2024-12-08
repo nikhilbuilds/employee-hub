@@ -23,9 +23,6 @@ export class TimeOffRequest {
   @JoinColumn({ name: 'employee_id' })
   employeeId: Employee;
 
-  // @Column({ nullable: false, name: 'employee_id' })
-  // employeeId: string;
-
   @Column({ type: 'date', name: 'start_date' })
   startDate: Date;
 

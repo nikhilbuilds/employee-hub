@@ -21,5 +21,5 @@ export class TimeOffRule {
   canOverlap: RequestCategory;
 
   @Column({ name: 'is_allowed', type: 'boolean', default: false })
-  isAllowed: boolean; // true if overlap is allowed
+  isAllowed: boolean;
 }

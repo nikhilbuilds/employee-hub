@@ -17,7 +17,7 @@ import {
 
 @Injectable()
 export class TimeOffService {
-  private readonly logger = new Logger(TimeOffService.name); // Logger instance with class name
+  private readonly logger = new Logger(TimeOffService.name);
 
   constructor(
     private readonly policyEngine: ITimeOffPolicyEngine,

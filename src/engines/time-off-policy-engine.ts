@@ -1,14 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ITimeOffPolicyEngine } from '../interfaces/time-off-policy-engine.interface';
-import { ITimeOffRulesRepository } from '../interfaces/time-off-rules-repository.interface';
 import { ITimeOffRequestRepository } from '../interfaces/time-off-request-repository.interface';
 
 @Injectable()
 export class TimeOffPolicyEngine implements ITimeOffPolicyEngine {
-  constructor(
-    private readonly rulesRepository: ITimeOffRulesRepository,
-    private readonly requestRepository: ITimeOffRequestRepository,
-  ) {}
+  constructor(private readonly requestRepository: ITimeOffRequestRepository) {}
 
   async validateRequest(
     employeeId: string,
