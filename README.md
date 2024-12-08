@@ -107,6 +107,76 @@ Manages user information linked to employees.
 
 ---
 
+## Design Choices: Why Split the Employee Table?
+
+To enhance the application's scalability, maintainability, and future flexibility, the original `Employee` table was split into three distinct entities: **User**, **Company**, and **Employee**. Here's why this design is better:
+
+### 1. Clear Separation of Concerns
+
+Each entity is designed with a specific responsibility:
+
+- **User**: Stores personal details like name and email.
+- **Company**: Stores organizational details such as company name and address.
+- **Employee**: Represents the employment relationship, including job-specific information like position and salary.
+
+---
+
+### 2. Reusability
+
+The **User** entity can be reused across different contexts. For example, the same user structure can later represent customers, contractors, or vendors. This avoids duplication of personal data and increases system efficiency.
+
+---
+
+### 3. Scalability
+
+By isolating company data into its own table, the system can easily scale to support multiple companies and employees. This structure is future-proof and ready for more complex business scenarios, such as users associated with multiple companies or freelancers.
+
+---
+
+### 4. Simplified Updates
+
+Updates to user or company data are localized to their respective tables without affecting job-related details. For example:
+
+- Changing a user’s email updates only the `User` entity.
+- Modifying a company’s address updates only the `Company` entity.
+
+---
+
+### 5. Improved Query Performance
+
+Queries targeting specific data (e.g., all users or all companies) are faster since they operate on smaller, focused tables. For example:
+
+- Fetching user details does not require joining or scanning employee-specific data.
+
+---
+
+### 6. Historical Tracking
+
+This design makes it easier to track changes independently:
+
+- Maintain a history of user updates, like email changes.
+- Track when a company’s details, such as address, are modified.
+
+---
+
+### 7. Flexibility for Future Features
+
+The separation allows for easy introduction of new features, such as:
+
+- Users associated with multiple companies in the future.
+- Extending the `Employee` entity with additional job-specific fields.
+
+---
+
+### 8. Adherence to Database Normalization
+
+Breaking the original table into logical entities eliminates data redundancy:
+
+- Company details are not repeated across employee records.
+- User details are not duplicated.
+
+---
+
 ## Seed Data
 
 ### Company
