@@ -14,11 +14,3 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
-
-/*
-//Advantage of data modelling -> need to add
-
-Time off policy enigine - rules
-
-Good to have - position model, can be used for head count planning 
-*/
