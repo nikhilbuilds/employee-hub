@@ -16,11 +16,16 @@ export class EmployeeRepository implements IEmployeeRepository {
   }
 
   async findAll(): Promise<Employee[]> {
-    return await this.employeeRepository.find();
+    return await this.employeeRepository.find({
+      relations: ['company', 'user'],
+    });
   }
 
   async findOneById(employeeId: string): Promise<Employee> {
-    return await this.employeeRepository.findOne({ where: { employeeId } });
+    return await this.employeeRepository.findOne({
+      where: { employeeId },
+      relations: ['company'],
+    });
   }
 
   async saveEmployee(newEmployee: Employee): Promise<Employee> {

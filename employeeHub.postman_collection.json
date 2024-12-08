@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "ffbc338e-34c4-4d77-a461-fbf13f6df483",
+		"name": "Cercli",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27199020"
+	},
+	"item": [
+		{
+			"name": "Get all employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"John Doe\",\n    \"position\":\"SDE3\",\n    \"email\":\"john.doe@example.com\",\n    \"salary\":80000,\n    \"companyId\": \"91d47234-1582-45c6-b937-bfdb3c117802\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get employee details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/employees/677f6ecd-6d79-487a-8064-938f689fb862",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees",
+						"677f6ecd-6d79-487a-8064-938f689fb862"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update employee details",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"position\": \"Senior Product Manager\",\n    \"salary\": 95000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/employees/677f6ecd-6d79-487a-8064-938f689fb862",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"employees",
+						"677f6ecd-6d79-487a-8064-938f689fb862"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Time off request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employeeId\": \"677f6ecd-6d79-487a-8064-938f689fb862\",\n    \"categoryId\": 1,\n    \"startDate\": \"2024-12-09\",\n    \"endDate\": \"2024-12-10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/time-off/request",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"time-off",
+						"request"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

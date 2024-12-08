@@ -32,9 +32,17 @@ export class TimeOffRequest {
   @Column({ type: 'date', name: 'end_date' })
   endDate: Date;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({
+    name: 'created_at',
+    type: 'timestamp with time zone',
+    default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'",
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamp with time zone',
+    default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'",
+  })
   updatedAt: Date;
 }

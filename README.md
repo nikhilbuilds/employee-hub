@@ -24,8 +24,6 @@ $ npm run start:prod
 - **Employee Management**: Add, update, and retrieve employee details.
 - **Time-Off Management**: Request time-off with validation for overlapping leave requests.
 - **Policy Engine**: Enforces custom time-off rules for categories.
-- **Company Management**: Maintains company details and associations.
-- **User Management**: Handles user data linked to employees.
 
 ---
 
@@ -219,14 +217,20 @@ VALUES
 ```json
 [
   {
-    "employeeId": "123e4567-e89b-12d3-a456-426614174000",
-    "name": "John Doe",
-    "emailId": "john.doe@example.com",
-    "position": "Software Engineer",
+    "employeeId": "677f6ecd-6d79-487a-8064-938f689fb862",
+    "position": "SDE3",
     "salary": 80000,
+    "createdAt": "2024-12-08T23:54:04.061",
+    "modifiedAt": "2024-12-08T23:54:04.061",
     "company": {
-      "companyId": "company123",
-      "companyName": "Tech Corp"
+      "companyId": "91d47234-1582-45c6-b937-bfdb3c117802",
+      "companyName": "Tech Corp",
+      "address": "123 Silicon Valley"
+    },
+    "user": {
+      "userId": "ba7a56fc-0d19-4dd4-86b7-d2f06d349306",
+      "name": "John Doe",
+      "emailId": "john.doe@example.com"
     }
   }
 ]
@@ -240,14 +244,16 @@ VALUES
 
 ```json
 {
-  "employeeId": "123e4567-e89b-12d3-a456-426614174000",
-  "name": "John Doe",
-  "emailId": "john.doe@example.com",
-  "position": "Software Engineer",
+  "employeeId": "677f6ecd-6d79-487a-8064-938f689fb862",
+  "position": "SDE3",
   "salary": 80000,
+  "createdAt": "2024-12-08T23:54:04.061Z",
+  "modifiedAt": "2024-12-08T23:54:04.061Z",
   "company": {
-    "companyId": "company123",
-    "companyName": "Tech Corp"
+    "companyId": "91d47234-1582-45c6-b937-bfdb3c117802",
+    "companyName": "Tech Corp",
+    "address": "123 Silicon Valley",
+    "createdAt": "2024-12-08T18:12:41.997Z"
   }
 }
 ```
@@ -260,11 +266,11 @@ VALUES
 
 ```json
 {
-  "name": "Jane Smith",
-  "emailId": "jane.smith@example.com",
-  "position": "Product Manager",
-  "salary": 90000,
-  "companyId": "company123"
+  "name": "John Doe",
+  "position": "SDE3",
+  "email": "john.doe@example.com",
+  "salary": 80000,
+  "companyId": "91d47234-1582-45c6-b937-bfdb3c117802"
 }
 ```
 
@@ -272,15 +278,22 @@ VALUES
 
 ```json
 {
-  "success": true,
-  "message": "Employee created successfully.",
-  "employee": {
-    "employeeId": "123e4567-e89b-12d3-a456-426614174001",
-    "name": "Jane Smith",
-    "emailId": "jane.smith@example.com",
-    "position": "Product Manager",
-    "salary": 90000,
-    "companyId": "company123"
+  "employeeId": "677f6ecd-6d79-487a-8064-938f689fb862",
+  "position": "SDE3",
+  "salary": 80000,
+  "company": {
+    "companyId": "91d47234-1582-45c6-b937-bfdb3c117802",
+    "companyName": "Tech Corp",
+    "address": "123 Silicon Valley",
+    "createdAt": "2024-12-08T18:12:41.997Z",
+    "modifiedAt": "2024-12-08T18:12:41.997Z"
+  },
+  "user": {
+    "name": "John Doe",
+    "emailId": "john.doe@example.com",
+    "userId": "ba7a56fc-0d19-4dd4-86b7-d2f06d349306",
+    "createdAt": "2024-12-08T18:24:04.061Z",
+    "modifiedAt": "2024-12-08T18:24:04.061Z"
   }
 }
 ```
@@ -302,15 +315,16 @@ VALUES
 
 ```json
 {
-  "success": true,
-  "message": "Employee updated successfully.",
-  "employee": {
-    "employeeId": "123e4567-e89b-12d3-a456-426614174001",
-    "name": "Jane Smith",
-    "emailId": "jane.smith@example.com",
-    "position": "Senior Product Manager",
-    "salary": 95000,
-    "companyId": "company123"
+  "employeeId": "677f6ecd-6d79-487a-8064-938f689fb862",
+  "position": "Senior Product Manager",
+  "salary": 95000,
+  "createdAt": "2024-12-08T18:24:04.061Z",
+  "modifiedAt": "2024-12-08T18:29:03.673Z",
+  "company": {
+    "companyId": "91d47234-1582-45c6-b937-bfdb3c117802",
+    "companyName": "Tech Corp",
+    "address": "123 Silicon Valley",
+    "createdAt": "2024-12-08T18:12:41.997Z"
   }
 }
 ```
@@ -325,8 +339,8 @@ VALUES
 {
   "employeeId": "123e4567-e89b-12d3-a456-426614174001",
   "categoryId": 1,
-  "startDate": "2024-12-10T09:00:00Z",
-  "endDate": "2024-12-15T18:00:00Z"
+  "startDate": "2024-12-09",
+  "endDate": "2024-12-10"
 }
 ```
 
@@ -334,7 +348,27 @@ VALUES
 
 ```json
 {
-  "success": true,
-  "message": "Time-off request created successfully."
+  "id": 1,
+  "createdAt": "2024-12-08T18:29:47.125Z",
+  "updatedAt": "2024-12-08T18:29:47.125Z",
+  "startDate": "2024-12-09T00:00:00.000Z",
+  "endDate": "2024-12-10T00:00:00.000Z",
+  "requestCategory": {
+    "id": 1,
+    "name": "Annual Leave"
+  },
+  "employeeId": {
+    "employeeId": "677f6ecd-6d79-487a-8064-938f689fb862",
+    "position": "Senior Product Manager",
+    "salary": 95000,
+    "createdAt": "2024-12-08T18:24:04.061Z",
+    "modifiedAt": "2024-12-08T18:29:03.673Z",
+    "company": {
+      "companyId": "91d47234-1582-45c6-b937-bfdb3c117802",
+      "companyName": "Tech Corp",
+      "address": "123 Silicon Valley",
+      "createdAt": "2024-12-08T18:12:41.997Z"
+    }
+  }
 }
 ```

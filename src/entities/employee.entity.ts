@@ -29,9 +29,15 @@ export class Employee {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
+    default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'",
+  })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    type: 'timestamp with time zone',
+    default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'",
+  })
   modifiedAt: Date;
 }
