@@ -16,7 +16,6 @@ export class TimeOffPolicyEngine implements ITimeOffPolicyEngine {
     startDate: Date,
     endDate: Date,
   ): Promise<void> {
-    //TODO: Add logger functions
     const overlappingRequests =
       await this.requestRepository.findOverlappingRequests(
         employeeId,

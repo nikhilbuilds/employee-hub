@@ -19,7 +19,6 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-
 ## Features
 
 - **Employee Management**: Add, update, and retrieve employee details.
@@ -131,12 +130,14 @@ VALUES
 ```
 
 ### TimeOffRule
+
 ```sql
 INSERT INTO time_off_rule (category_id, can_overlap_id, is_allowed)
 VALUES
   (1, 3, true),
   (2, 3, false);
 ```
+
 ## API Endpoints
 
 ### **1. Fetch All Employees**
@@ -144,6 +145,7 @@ VALUES
 **Endpoint**: `GET /employees`
 
 #### Response:
+
 ```json
 [
   {
@@ -160,11 +162,12 @@ VALUES
 ]
 ```
 
-### **2. Fetch All Employees**
+### **2. Fetch Employee By Id**
 
 **Endpoint**: `GET /employees/:id`
 
 #### Response:
+
 ```json
 {
   "employeeId": "123e4567-e89b-12d3-a456-426614174000",
@@ -184,6 +187,7 @@ VALUES
 **Endpoint**: `POST /employees`
 
 #### Request Payload:
+
 ```json
 {
   "name": "Jane Smith",
@@ -195,6 +199,7 @@ VALUES
 ```
 
 #### Response:
+
 ```json
 {
   "success": true,
@@ -207,5 +212,59 @@ VALUES
     "salary": 90000,
     "companyId": "company123"
   }
+}
+```
+
+### **4. Update Employee**
+
+**Endpoint**: `PUT /employees/:id`
+
+#### Request Payload:
+
+```json
+{
+  "position": "Senior Product Manager",
+  "salary": 95000
+}
+```
+
+#### Response:
+
+```json
+{
+  "success": true,
+  "message": "Employee updated successfully.",
+  "employee": {
+    "employeeId": "123e4567-e89b-12d3-a456-426614174001",
+    "name": "Jane Smith",
+    "emailId": "jane.smith@example.com",
+    "position": "Senior Product Manager",
+    "salary": 95000,
+    "companyId": "company123"
+  }
+}
+```
+
+### **5. Request Time-Off**
+
+**Endpoint**: `POST /time-off/request`
+
+#### Request Payload:
+
+```json
+{
+  "employeeId": "123e4567-e89b-12d3-a456-426614174001",
+  "categoryId": 1,
+  "startDate": "2024-12-10T09:00:00Z",
+  "endDate": "2024-12-15T18:00:00Z"
+}
+```
+
+#### Response:
+
+```json
+{
+  "success": true,
+  "message": "Time-off request created successfully."
 }
 ```

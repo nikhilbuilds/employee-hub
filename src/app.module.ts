@@ -15,10 +15,10 @@ import { TimeOffModule } from './modules/time-off.module';
       password: 'root',
       database: 'employee_db',
       entities: [__dirname + '/entities/*{.entity.ts,.entity.js}'],
-      //migrations: [__dirname + '/migrations/*{.ts,.js}'], // Ensure this path points to your migration files
+      //migrations: [__dirname + '/migrations/*{.ts,.js}'],
       synchronize: true,
-      logging: true, // Enables query logging,
-      useUTC: true, // Forces UTC
+      logging: true,
+      useUTC: true,
     }),
     EmployeeModule,
     UserModule,

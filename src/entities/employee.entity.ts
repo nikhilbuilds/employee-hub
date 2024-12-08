@@ -29,10 +29,7 @@ export class Employee {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @CreateDateColumn({
-    type: 'timestamptz',
-    default: () => "CURRENT_TIMESTAMP AT TIME ZONE 'UTC'",
-  })
+  @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
